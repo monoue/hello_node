@@ -1,9 +1,24 @@
-const array = ['42', 42, [42], new Object(), true, undefined];
-const putMessage = (target, article) => console.log(target + ' is ' + article + ' ' + typeof(target) + '.');
+'use strict'
 
-putMessage(array[0], 'a');
-putMessage(array[1], 'a');
-putMessage(array[2], 'an');
-putMessage(array[3], 'an');
-putMessage(array[4], 'a');
-putMessage(array[5], 'an');
+{
+	const a_or_an = word => {
+		const c = word[0];
+
+		if (c === 'a' || c === 'i' || c === 'u' || c === 'e' || c === 'o')
+			return ('an');
+		return ('a');
+	}
+
+	const putTypeDescription = target => {
+		const type = typeof(target);
+
+		console.log(target + ' is ' +  a_or_an(type) + ' ' + type + '.')
+	}
+
+	putTypeDescription('42');
+	putTypeDescription(42);
+	putTypeDescription([42]);
+	putTypeDescription(new Object());
+	putTypeDescription(true);
+	putTypeDescription(undefined);
+}
