@@ -10,9 +10,9 @@
 	}
 
 	const putTypeDescription = target => {
-		const type = typeof(target);
+		const type = typeof target;
 
-		console.log(target + ' is ' +  a_or_an(type) + ' ' + type + '.')
+		console.log(`${target} is ${a_or_an(type)} ${type}.`);
 	}
 
 	putTypeDescription('42');

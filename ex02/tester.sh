@@ -1,9 +1,13 @@
 #!/bin/bash
 subject="ex02"
+file="sum_args.js"
+
 esc=$(printf '\033')
-yellow=$esc"[33:1m"
-green=$esc"[32:1m"
 red=$esc"[31:1m"
+green=$esc"[32:1m"
+yellow=$esc"[33:1m"
+purple=$esc"[35:1m"
+cyan=$esc"[36:1m"
 reset=$esc"[m"
 
 put_color() {
@@ -18,33 +22,36 @@ check() {
 	fi
 }
 
+diff_sh_js() {
+	node $file ${args[@]} > js_output
+	sh sum.sh ${args[@]} > sh_output
+	diff js_output sh_output
+	check
+}
+
 put_color "test "$subject $yellow
 
-echo "case1 no param given"
-node sum_args.js > output
-diff output empty
+put_color "case1 no args given" $purple
+node $file > js_output
+diff js_output no_arg
 check
 
-echo "case2 simple a"
+put_color "case2 simple a" $purple
 args=("1" "2" "3")
-expected="6"
-test `node sum_args ${args[@]}` = $expected
-check
+diff_sh_js
 
-echo "case2 simple b"
+put_color "case2 simple b" $purple
 args=("10" "200" "3000" "40000" "500000")
-expected="543210"
-test `node sum_args ${args[@]}` = $expected
-check
+diff_sh_js
 
-echo "case2 simple c"
+put_color "case2 simple c" $purple
 args=("42")
-expected="42"
-test `node sum_args ${args[@]}` = $expected
-check
+diff_sh_js
 
-echo "case3 too big number"
+put_color "case3 too big number" $purple
 args=("1000000000000000000000000000000000000000000")
 expected="1e+42"
-test `node sum_args ${args[@]}` = $expected
+test `node $file ${args[@]}` = $expected
 check
+
+rm -f js_output sh_output
