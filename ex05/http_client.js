@@ -1,15 +1,30 @@
 'use strict'
 
 {
+	// error messages
 	const err = 'Error: ';
 	const arg_error = `${err}Arg num is not one`;
 	const path_error = `${err}No such file: `;
 
-	// if (process.argv.length != 3)
-	// {
-	// 	console.log(arg_error);
-	// 	return ;
-	// }
+	// when arguments' number is invalid
+	if (process.argv.length != 3)
+	{
+		console.log(arg_error);
+		return;
+	}
+	// const http = require("http");
+	// let url = process.argv[2];
+	// http.get(url, (res) => {
+		const { statusCode } = res;
+		if (statusCode !== 200)
+			return;
+		res.setEncoding("utf8");
+		res.on("data", (chunk) => {
+			console.log(chunk);
+		})
+	// })
+
+
 	function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();

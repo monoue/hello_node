@@ -5,7 +5,7 @@
 
 	if (argv_num < 3) {
 		console.log("No arguments");
-		return ;
+		return;
 	}
 
 	let	sum = 0;

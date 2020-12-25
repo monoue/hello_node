@@ -1,14 +1,16 @@
 'use strict'
 
 {
+	// error messages
 	const err = 'Error: ';
 	const arg_error = `${err}Arg num is not one`;
 	const path_error = `${err}No such file: `;
 
+	// when arguments` number is invalid
 	if (process.argv.length != 3)
 	{
 		console.log(arg_error);
-		return ;
+		return;
 	}
 
 	const fs = require('fs');
@@ -16,13 +18,14 @@
 	let fileBuffer;
 	try {
 		fileBuffer = fs.readFileSync(filePath);
-	// } catch (e) {
+	} catch (e) {
+		console.log(e.message);
+		return;
+	}
+	// } catch {
 	// 	console.log(path_error + filePath)
 	// 	return ;
-	} catch (_) {
-		console.log(path_error + filePath)
-		return ;
-	}
+	// }
 	const fileString = fileBuffer.toString();
 	let br_num = 0;
 	for (let i = 0; i < fileString.length; i++)
