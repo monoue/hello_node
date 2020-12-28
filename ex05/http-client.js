@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   http_client.js                                     :+:      :+:    :+:   */
+/*   http-client.js                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 05:01:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/28 10:36:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/28 15:44:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 'use strict'
 
 {
-	// error messages
-	const err = 'Error: ';
-	const arg_error = `${err}Arg num is not one`;
+	const arg_error = 'Error: Arg num is not one';
 
-	// when arguments' number is invalid
 	if (process.argv.length != 3)
 		return console.log(arg_error);
 
@@ -28,7 +25,7 @@
 			res.on('data', chunk => {
 				console.log(chunk.toString());
 			})
-		});
+		}).on('error', err => console.log(err.message));
 	} catch (err) {
 		return console.log(err.message);
 	}

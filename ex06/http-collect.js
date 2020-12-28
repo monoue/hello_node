@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   http-collect.js                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 10:39:10 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/28 10:56:19 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/28 16:10:09 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 'use strict'
 
 {
-	// error messages
-	const err = 'Error: ';
-	const arg_error = `${err}Arg num is not one`;
+	const arg_error = 'Error: Arg num is not one';
 
-	// when arguments' number is invalid
 	if (process.argv.length != 3)
 		return console.log(arg_error);
 
@@ -31,10 +28,9 @@
 					data += chunk;
 				})
 				.on('end', () => {
-					console.log(`${data.length}\n${data.toString()}`);
-					// console.log(`${data.length}\n${data}`);
+					console.log(`${data.length}\n${data}`);
 				});
-		});
+		}).on('error', err => console.log(err.message));
 	} catch (err) {
 		return console.log(err.message);
 	}
