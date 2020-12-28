@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   io.js                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 05:02:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/28 09:07:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/28 16:27:41 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 'use strict'
 
 {
-	// error messages
-	const err = 'Error: ';
-	const arg_error = `${err}Arg num is not one`;
+	const arg_error = 'Error: Arg num is not one';
 
-	// when arguments` number is invalid
 	if (process.argv.length != 3)
 		return console.log(arg_error);
 
