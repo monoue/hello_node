@@ -1,33 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   io.js                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/28 05:02:38 by monoue            #+#    #+#             */
+/*   Updated: 2020/12/28 09:07:16 by monoue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 'use strict'
 
 {
 	// error messages
 	const err = 'Error: ';
 	const arg_error = `${err}Arg num is not one`;
-	const path_error = `${err}No such file: `;
 
 	// when arguments` number is invalid
 	if (process.argv.length != 3)
-	{
-		console.log(arg_error);
-		return;
-	}
+		return console.log(arg_error);
 
 	const fs = require('fs');
 	const filePath = process.argv[2];
 	let fileBuffer;
+
 	try {
 		fileBuffer = fs.readFileSync(filePath);
 	} catch (e) {
-		console.log(e.message);
-		return;
+		return console.log(e.message);
 	}
-	// } catch {
-	// 	console.log(path_error + filePath)
-	// 	return ;
-	// }
+
 	const fileString = fileBuffer.toString();
 	let br_num = 0;
+
 	for (let i = 0; i < fileString.length; i++)
 	{
 		if (fileString[i] === '\n')
