@@ -18,22 +18,30 @@
 	if (process.argv.length != 3)
 		return console.log(arg_error);
 
-	require('date-utils');
+	const format = num => num.toString().padStart(2, '0');
+
+	const getCurrentDateAndTime = () => {
+		const date = new Date();
+		const year = date.getFullYear().toString();
+		const month = format(date.getMonth() + 1);
+		const day = format(date.getDate());
+		const hour = format(date.getHours());
+		const minute = format(date.getMinutes());
+
+		return `${year}-${month}-${day} ${hour}:${minute}\n`;
+	};
 
 	try {
 		const server = require('net').createServer(socket => {
 			socket.on("error", () => {
 				return;
 			});
-			const date = new Date();
-			const formatted = date.toFormat("YYYY-MM-DD HH24:MI");
-			socket.end(formatted + '\n');
+			socket.end(getCurrentDateAndTime());
 		});
 		server.on("error", () => {
 			return;
 		});
 		server.listen(parseInt(process.argv[2]));
-	} catch (e) {
-		console.log(e.message);
+	} catch {
 	};
 }

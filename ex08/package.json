@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "net": "^1.0.2"
+    "date-utils": "^1.2.21"
   }
 }

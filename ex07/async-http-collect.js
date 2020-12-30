@@ -13,7 +13,7 @@
 'use strict'
 
 {
-	const arg_error = 'Error: Arg num is not one';
+	const arg_error = 'Error: Arg num is not three';
 
 	if (process.argv.length != 5)
 		return console.log(arg_error);
