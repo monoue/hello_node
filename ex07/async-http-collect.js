@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   async-http-collect.js                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 10:39:10 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/28 17:13:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/29 08:43:21 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@
 		try {
 			const res = await fetch(url);
 			const data = await res.text();
-			console.log(`${data.length}\n${data}`);
+			console.log(data);
 		} catch (err) {
 			return console.log(err.message);
 		}
 	};
 
-	const exec_three_funcs_in_order = async () => {
+	const execThreeInOrder = async () => {
 		await httpCollect(process.argv[2]);
 		await httpCollect(process.argv[3]);
 		httpCollect(process.argv[4]);
 	};
 
-	exec_three_funcs_in_order();
+	execThreeInOrder();
 }
