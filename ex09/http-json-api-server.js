@@ -6,7 +6,7 @@
 /*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 10:39:10 by monoue            #+#    #+#             */
-/*   Updated: 2021/01/05 16:21:54 by monoue           ###   ########.fr       */
+/*   Updated: 2021/01/05 17:29:59 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,61 @@
 
 {
 	const error = 'Error: ';
-	const arg_num_error = `${error}Arg num is not one`;
-	const arg_content_error = `${error}Invalid arg format`;
-	const query_num_error = `${error}Num of queries should be one`;
-	const query_key_error = `${error}Key of query must be 'iso'`;
-
-	const parsetime_path = '/api/parsetime'
-	const unixtime_path= '/api/unixtime'
+	const argNumError = `${error}Arg num is not one`;
+	const queryError = `${error}Invalid query`;
+	const queryKeyError = `${error}Key of query must be 'iso'`;
+	const pageNotFoundError = '404 not found';
 
 	if (process.argv.length !== 3)
-		return console.log(arg_num_error);
+		return console.log(argNumError);
 
 	const http = require('http');
 	const URL = require('url').URL;
+
+	const parsetimePath = '/api/parsetime';
+	const unixtimePath= '/api/unixtime';
+
 	const port = parseInt(process.argv[2], 10);
 
-	const get
+	const getParsedTime = date => {
+		return {
+			hour: date.getUTCHours(),
+			minute: date.getUTCMinutes(),
+			second: date.getUTCSeconds()
+		};
+	};
+
+	const getUnixTime = date => {
+		return {unixtime: date.getTime()};
+	};
 
 	const getJSONTime = (pathname, date) => {
-		if (pathname === parsetime_path)
-			return getJSONParsedTime(date);
+		let arr;
+
+		if (pathname === parsetimePath)
+			arr = getParsedTime(date);
 		else
-			return getJSONUnixTime(date);
+			arr = getUnixTime(date);
+
+		return JSON.stringify(arr);
+	};
+
+	const serveJSONData = (res, isoString, pathname) => {
+			res.writeHead(200, {'Content-Type': 'application/json'});
+
+			const date = new Date(isoString);
+
+			if (isNaN(date))
+				res.end(queryError + '\n');
+
+			const arr = getJSONTime(pathname, date);
+
+			res.end(arr + '\n');
+	};
+
+	const showNotFound = res => {
+		res.writeHead(404);
+		res.end(pageNotFoundError + '\n');
 	};
 
 	const server = http.createServer((req, res) => {
@@ -44,33 +77,22 @@
 		const isoString = queryData.get('iso');
 
 		if (isoString === undefined)
-			return console.log(query_key_error);
+			return console.log(queryKeyError);
 
 		const pathname = urlObj.pathname;
 
-		if (pathname === parsetime_path || pathname === unixtime_path)
-		{
-			res.writeHead(200, {'Content-Type': 'application/json'});
-			const date = new Date(isoString);
-			let arr;
-			if (pathname === parsetime_path)
-			{
-				arr = {
-					hour: date.getUTCHours(),
-					minute: date.getUTCMinutes(),
-					second: date.getUTCSeconds()
-				};
-			}
-			else
-				arr = {unixtime: date.getTime()};
-			res.end(JSON.stringify(arr));
-		}
+		if (pathname === parsetimePath || pathname === unixtimePath)
+			serveJSONData(res, isoString, pathname);
 		else
-		{
-			res.writeHead(404);
-			res.end('404 not found');
-		}
+			showNotFound(res);
 	});
 
-	server.listen(port);
+	try {
+		server.on('error', err => {
+			return console.log(err.message);
+		});
+		server.listen(port);
+	} catch (e) {
+		console.log(e.message);
+	};
 }
