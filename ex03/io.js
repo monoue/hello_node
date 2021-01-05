@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io.js                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 05:02:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/28 16:27:41 by monoue           ###   ########.fr       */
+/*   Updated: 2021/01/05 08:48:21 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@
 
 	const fs = require('fs');
 	const filePath = process.argv[2];
-	let fileBuffer;
+	let fileString;
 
 	try {
-		fileBuffer = fs.readFileSync(filePath);
+		fileString = fs.readFileSync(filePath, 'utf8');
 	} catch (e) {
 		return console.log(e.message);
 	}
 
-	const fileString = fileBuffer.toString();
 	let br_num = 0;
 
 	for (let i = 0; i < fileString.length; i++)

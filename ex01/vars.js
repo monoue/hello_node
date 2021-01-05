@@ -6,7 +6,7 @@
 /*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 05:02:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/28 08:11:28 by monoue           ###   ########.fr       */
+/*   Updated: 2021/01/05 08:46:28 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	putTypeDescription('42');
 	putTypeDescription(42);
 	putTypeDescription([42]);
-	putTypeDescription(new Object());
+	putTypeDescription({});
 	putTypeDescription(true);
 	putTypeDescription(undefined);
 }
