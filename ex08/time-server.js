@@ -6,7 +6,7 @@
 /*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 10:39:10 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/29 09:52:23 by monoue           ###   ########.fr       */
+/*   Updated: 2021/01/05 10:58:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@
 
 	try {
 		const server = require('net').createServer(socket => {
-			socket.on("error", () => {
-				return;
+			socket.on('error', err => {
+				return console.log(err.message);
 			});
 			const date = new Date();
-			const formatted = date.toFormat("YYYY-MM-DD HH24:MI");
+			const formatted = date.toFormat('YYYY-MM-DD HH24:MI');
 			socket.end(formatted + '\n');
 		});
-		server.on("error", () => {
-			return;
+		server.on('error', err => {
+			return console.log(err.message);
 		});
+
 		server.listen(parseInt(process.argv[2]));
 	} catch (e) {
 		console.log(e.message);
