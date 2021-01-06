@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   http-json-api-server.js                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monoue <monoue@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 10:39:10 by monoue            #+#    #+#             */
-/*   Updated: 2021/01/05 17:29:59 by monoue           ###   ########.fr       */
+/*   Updated: 2021/01/06 09:10:41 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 			const date = new Date(isoString);
 
 			if (isNaN(date))
-				res.end(queryError + '\n');
+				return res.end(queryError + '\n');
 
 			const arr = getJSONTime(pathname, date);
 
@@ -76,8 +76,8 @@
 		const queryData = urlObj.searchParams;
 		const isoString = queryData.get('iso');
 
-		if (isoString === undefined)
-			return console.log(queryKeyError);
+		if (isoString === undefined || isoString === null)
+			return res.end(queryKeyError + '\n');
 
 		const pathname = urlObj.pathname;
 
